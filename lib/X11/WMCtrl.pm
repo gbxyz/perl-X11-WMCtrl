@@ -1,12 +1,11 @@
-# $Id: WMCtrl.pm,v 1.2 2004/01/13 14:03:51 jodrell Exp $
-# Copyright (c) 2004 Gavin Brown. All rights reserved. This program is
+# Copyright (c) 2014 Gavin Brown. All rights reserved. This program is
 # free software; you can redistribute it and/or modify it under the same
 # terms as Perl itself. 
 package X11::WMCtrl;
 use vars qw($VERSION);
 use strict;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =pod
 
@@ -113,7 +112,7 @@ sub get_windows {
 	my $data = $self->wmctrl('-l');
 	my @windows;
 	foreach my $line (split(/\n/, $data)) {
-		my ($id, $strand) = split(/ /, $line, 2);
+		my ($id, $strand) = split(/ +/, $line, 2);
 		my ($workspace, $host, $title);
 		if ($strand =~ /^-1/) {
 			$strand =~ s/^-1//;
@@ -406,6 +405,15 @@ sub modify_state {
 
 =pod
 
+=head1 INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
 =head1 BUGS
 
 Currently C<stick()>, C<unstick()>, C<minimize()> and C<unminimize()> don't work. This appears to be a problem with C<wmctrl> itself since.
@@ -416,7 +424,7 @@ Gavin Brown (L<gavin.brown@uk.com>).
 
 =head1 COPYRIGHT
 
-Copyright (c) 2004 Gavin Brown. This program is free software, you can use it and/or modify it under the same terms as Perl itself.
+Copyright (c) 2014 Gavin Brown. This program is free software, you can use it and/or modify it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
